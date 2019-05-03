@@ -1,5 +1,4 @@
-﻿// Gost_1.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
+﻿
 
 #include "pch.h"
 //#include <vcl.h>
@@ -14,8 +13,8 @@ using namespace std;
 void print(const string& str);
 template< class T >
 void input(vector<T> &arr, const int sizeKey = 0);
-
-void input_drives(vector<string> &arr,string &drives_1, string &drives_2,const int count = 0, const int sizeKey = 32);
+void encode(vector<string>& Text, const vector<string> key, string &drives_1, string &drives_2);
+void input_drives(vector<string> &arr, vector<string> &drives,const int count = 0, const int sizeKey = 32);
 
 void printInputM(vector<string>& Text);
 //---------------------------------------------------------------------------
@@ -27,7 +26,9 @@ int main()
 {
 	setlocale(LC_ALL, "Russian");
 	vector<string> Stroka;
-	string drives_1, drives_2;
+	vector<string> Stroka_encryption;
+	vector<string> drives;
+	
 				//	 Ladyship it daughter securing procured or am moreover mr. Put si
 				//	 r she exercise vicinity cheerful wondered. Continual say suspici
 				//	 on provision you neglected sir curiosity unwilling. Simplicity e
@@ -42,14 +43,25 @@ int main()
 
 	input(Stroka, 64);
 	printInputM(Stroka);
-
+	
 	cout << "-----------------------------------------------------------------------" << endl;
 	cout << "2) ввод первого блока в накопители N1 и N2" << endl;
 	cout << "-----------------------------------------------------------------------" << endl;
 
-	input_drives(Stroka, drives_1, drives_2);
-	print(drives_1);
-	print(drives_2);
+	for (int i =0; i < Stroka.size(); i++)
+	{
+		input_drives(Stroka, drives, i);
+	}
+	printInputM(drives);
+
+	cout << "-----------------------------------------------------------------------" << endl;
+	cout << "3)В КЗУ вводится ключ длиной 256 бит" << endl;
+	cout << "-----------------------------------------------------------------------" << endl;
+
+	cout << "-----------------------------------------------------------------------" << endl;
+	cout << "4)В КЗУ вводится ключ длиной 256 бит" << endl;
+	cout << "-----------------------------------------------------------------------" << endl;
+	
 	return 0;
 }
 //---------------------------------------------------------------------------
@@ -112,17 +124,37 @@ void input(vector<T>& arr, const int sizeKey)
 
 
 }
-void input_drives(vector<string> & arr, string &drives_1, string &drives_2, const int count, const int sizeKey)
+void encode(vector<string>& Text, const vector<string> key, string & drives_1, string & drives_2)
+{
+	for (int i = 0; i < Text.size(); i++)
+	{
+		string tmp;
+		for (int j = 0; j < key.size(); j++)
+		{
+			drives_1;
+		}
+		//tmp = drives_1 + drives_2;
+	}
+}
+void input_drives(vector<string> & arr, vector<string> &drives, const int count, const int sizeKey)
 {
 	string tmp = arr[count];
+	string drives_1, drives_2;
 	for (int i = 0; i < 64; i++)
 	{
-		if( i < sizeKey)
+		if (i < sizeKey)
+		{
 			drives_1.push_back(tmp[i]);
-		if (i > sizeKey - 1 && i <64)
+		
+		}
+		if (i > sizeKey - 1 && i < 64)
+		{
 			drives_2.push_back(tmp[i]);
+			
+		}
 	}
-
+	drives.push_back(drives_1);
+	drives.push_back(drives_2);
 }
 void printInputM(vector<string>& Text)
 {
